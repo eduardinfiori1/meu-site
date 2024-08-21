@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <base target="_top">
+    <title>RED NET 2024</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  </head>
+
+  <style>
+
+    body{
+      background-color:purple;
+    }
+
+    #dados{
+      background-color:white;
+      color: black;
+      //width: 600px;
+      border-radius: 20px;
+      padding: 10px;
+    }
+
+    #container{
+      margin-top: 10px;
+      max-width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+    }
+
+    #logo{
+      //position:relative;
+      //left:30%;
+    }
+
+    #btn1{
+      margin-top: 15px;
+      position:relative;
+      left:35%;
+    }
+
+    #opcoes{
+      margin-top: 15px;
+      text-align:center;
+    }
+
+    #confirmacao checkbox{
+      justify-content: center;
+      align-items: center;
+      text-align:center;
+    }
+
+    #check{
+      justify-content: center;
+      align-items: center;
+      text-align:center;
+    }
+
+    #inputckeckbox{
+      display: none;
+    }
+
+    #inputname{
+      display: none;
+      text-align:center;
+    }
+
+    #inputcliente{
+      text-align:center;
+    }
+
+    #date{
+      display: none;
+    }
+
+    #wait{display:none;}
+
+    /* ---------------------------------INPUT ---------------------------------------------- */
+
+      #dados input{
+        margin-top: 15px;
+      }
+
+      #dados input,::placeholder {
+        color: black;}  
+
+    /* ---------------------------------INPUT---------------------------------------------- */
+
+    /* ------------------------------------ CSS CONFIRMATION ---------------------------------------------------- */   
+
+      #end{
+        display:none;
+        text-align:center;
+        background-color: white;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -30%); 
+        border-radius: 10px;
+        z-index: 1;
+        border: 4px solid black;
+        width: 350px;
+        //height: 230px;
+        padding: 40px;}
+
+      #end span{
+        font-size: 30px;
+        color: purple}
+
+      #end button{
+        margin-top: 15px;
+        font-size: 50px;
+        width: 250px;
+        height: 70px;
+        border-radius: 10px;}
+
+      #wait{
+        display:none;
+        text-align:center;
+        background-color: white;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -30%); 
+        border-radius: 10px;
+        z-index: 1;
+        border: 4px solid black;
+        width: 350px;
+        //height: 180px;
+        padding: 40px;}
+
+      #wait span{
+        font-size: 30px;
+        color: purple}
+
+    /* ---------------------------------- END CSS CONFIRMATION ------------------------------------------------ */ 7
+
+    /* ---------------------------------- MEDIA SCREEN -------------------------------------------------------- */
+
+      @media screen and (max-width: 640px){
+
+        #body{
+          width:100vw;
+        }
+
+        #container{
+          max-width:100%
+        }
+        
+        #logo{
+          position:relative;
+          left:10%;
+        } 
+
+      }
+
+    /*-------------------------------------------------------------------------------------------------------------*/
+
+    #progressBar {
+      width: 90%;
+      margin: 10px auto;
+      height: 22px;
+      background-color: #0A5F44;
+    }
+
+    #progressBar div {
+      height: 100%;
+      text-align: right;
+      padding: 0 10px;
+      line-height: 22px; /* same as #progressBar height if we want text middle aligned */
+      width: 0;
+      background-color: #CBEA00;
+      box-sizing: border-box;
+    }
+
+    #aviso {
+    text-align: center
+    }
+
+  </style>
+
+  <body onload="onLoad()">
+    
+    <div id="container">
+
+      <div id="dados" class="row">
+
+        <div id="logo">
+          <img src="https://www.r3ds.com.br/b6402416f76969d8cbb2.png">
+        </div>
+
+        <div id="horario"> 
+
+         <p id="date"></p>               
+
+        </div> 
+
+        <div id="clients" class="col s12">     
+
+          <h1 id="aviso">AGUARDE O CARREGAMENTO DA LISTA E SELECIONE O CLIENTE!</h1>
+
+          <input type="text" id="inputcliente" placeholder="Selecione o Cliente">
+
+          <div id="selectList" ></div> 
+
+        </div>
+
+        <div id="textoptions">
+
+          <h6 id="opcoes">Selecione uma opção abaixo </h6>
+
+        </div>
+
+        <div id="confirmacao">
+
+          <div id="check">
+
+            <label>
+                <input type="checkbox" class="filled-in" id="checkbox1" onclick="check1()"/>
+                <span style="color:black">Vendedor</span>
+            </label>
+
+            <label>
+                <input type="checkbox" class="filled-in" id="checkbox2" onclick="check2()"/>
+                <span style="color:black">Supervisor</span>
+            </label>  
+      
+            <label>
+                <input type="checkbox" class="filled-in" id="checkbox3" onclick="check3()"/>
+                <span style="color:black">Promotor</span>
+            </label>        
+
+            <label>
+                <input type="checkbox" class="filled-in" id="checkbox4" onclick="check4()"/>
+                <span style="color:black">Animadora</span>
+            </label>
+
+          </div>
+
+          <input type="text" id="inputckeckbox">
+
+          <input type="text" id="inputname" placeholder="Digite Seu Nome...">
+
+        </div>
+
+        <div id="tableProducts">
+
+          <table id="table">
+
+            <thead>
+              <tr>
+                <th>PRODUTO</th>
+                <th>QTD CXS</th>
+                <th>QTD UNS</th>
+              </tr>
+            </thead>
+
+            <tbody id="tabelapreco">
+
+              <tr id="OVO5">
+                <td data-label="PRODUTO"  >OVO LACTA AO LEITE 170G N.15</td>
+                <td data-label="QTD CXS"  ><input type="number" placeholder="CX" id="cxovo1"></td>
+                <td data-label="PREÇO"    ><input type="number" placeholder="UN" id="unovo1"></td>                              
+              </tr>               
+
+              <tr id="OVO14">
+                <td data-label="PRODUTO"  >OVO LAKA 175G N.15</td>
+                <td data-label="QTD CXS"  ><input type="number" placeholder="CX" id="cxovo2"></td>
+                <td data-label="PREÇO"    ><input type="number" placeholder="UN" id="unovo2"></td>                              
+              </tr> 
+
+              <tr id="OVO2">
+                <td data-label="PRODUTO"  >OVO DIAMANTE NEGRO 176G N.15</td>
+                <td data-label="QTD CXS"  ><input type="number" placeholder="CX" id="cxovo3"></td>
+                <td data-label="PREÇO"    ><input type="number" placeholder="UN" id="unovo3"></td>                              
+              </tr> 
+
+              <tr id="OVO3">
+                <td data-label="PRODUTO"  >OVO DIAMANTE NEGRO 300G N.20</td>
+                <td data-label="QTD CXS"  ><input type="number" placeholder="CX" id="cxovo4"></td>
+                <td data-label="PREÇO"    ><input type="number" placeholder="UN" id="unovo4"></td>                              
+              </tr>
+
+              <tr id="OVO17">
+                <td data-label="PRODUTO"  >OVO SONHO DE VALSA 277G N.15</td>
+                <td data-label="QTD CXS"  ><input type="number" placeholder="CX" id="cxovo5"></td>
+                <td data-label="PREÇO"    ><input type="number" placeholder="UN" id="unovo5"></td>                              
+              </tr> 
+
+              <tr id="OVO18">
+                <td data-label="PRODUTO"  >OVO SONHO DE VALSA 357G N.20</td>
+                <td data-label="QTD CXS"  ><input type="number" placeholder="CX" id="cxovo6"></td>
+                <td data-label="PREÇO"    ><input type="number" placeholder="UN" id="unovo6"></td>                              
+              </tr>
+
+              <tr id="OVO16">
+                <td data-label="PRODUTO"  >OVO OURO BRANCO 359G N.20</td>
+                <td data-label="QTD CXS"  ><input type="number" placeholder="CX" id="cxovo7"></td>
+                <td data-label="PREÇO"    ><input type="number" placeholder="UN" id="unovo7"></td>                              
+              </tr>
+
+              <tr id="OVO15">
+                <td data-label="PRODUTO"  >OVO OREO 257G N.15</td>
+                <td data-label="QTD CXS"  ><input type="number" placeholder="CX" id="cxovo8"></td>
+                <td data-label="PREÇO"    ><input type="number" placeholder="UN" id="unovo8"></td>                              
+              </tr>
+
+              <tr id="OVO1">
+                <td data-label="PRODUTO"  >OVO BIS LEITE 318G N.20</td>
+                <td data-label="QTD CXS"  ><input type="number" placeholder="CX" id="cxovo9"></td>
+                <td data-label="PREÇO"    ><input type="number" placeholder="UN" id="unovo9"></td>                              
+              </tr>
+
+              <tr id="OVO8">
+                <td data-label="PRODUTO"  >OVO LACTA FAVORITOS 560G N.22</td>
+                <td data-label="QTD CXS"  ><input type="number" placeholder="CX" id="cxovo10"></td>
+                <td data-label="PREÇO"    ><input type="number" placeholder="UN" id="unovo10"></td>                              
+              </tr>
+
+              <tr id="OVO4">
+                <td data-label="PRODUTO"  >OVO DIAMANTE NEGRO/LAKA 500G N.22</td>
+                <td data-label="QTD CXS"  ><input type="number" placeholder="CX" id="cxovo11"></td>
+                <td data-label="PREÇO"    ><input type="number" placeholder="UN" id="unovo11"></td>                              
+              </tr>
+
+              <tr id="OVO6">
+                <td data-label="PRODUTO"  >OVO LACTA BARBIE (BAILARINA) 166G N.15</td>
+                <td data-label="QTD CXS"  ><input type="number" placeholder="CX" id="cxovo12"></td>
+                <td data-label="PREÇO"    ><input type="number" placeholder="UN" id="unovo12"></td>                              
+              </tr>
+  
+              <tr id="OVO9">
+                <td data-label="PRODUTO"  >OVO LACTA HOTWHEELS (SHAKE CAR) 166G N.15</td>
+                <td data-label="QTD CXS"  ><input type="number" placeholder="CX" id="cxovo13"></td>
+                <td data-label="PREÇO"    ><input type="number" placeholder="UN" id="unovo13"></td>                              
+              </tr>
+ 
+              <tr id="OVO7">
+                <td data-label="PRODUTO"  >OVO LACTA BATMAN (BONECO) 166G N.15</td>
+                <td data-label="QTD CXS"  ><input type="number" placeholder="CX" id="cxovo14"></td>
+                <td data-label="PREÇO"    ><input type="number" placeholder="UN" id="unovo14"></td>                              
+              </tr>
+ 
+              <tr id="OVO14">
+                <td data-label="PRODUTO"  >OVO LACTA TRIPLA CAMADA AVELÃ 320G N. 15</td>
+                <td data-label="QTD CXS"  ><input type="number" placeholder="CX" id="cxovo16"></td>
+                <td data-label="PREÇO"    ><input type="number" placeholder="UN" id="unovo16"></td>                              
+              </tr>
+
+              <tr id="OVO13">
+                <td data-label="PRODUTO"  >OVO LACTA TRIPLA CAMADA OREO 320G N.15</td>
+                <td data-label="QTD CXS"  ><input type="number" placeholder="CX" id="cxovo17"></td>
+                <td data-label="PREÇO"    ><input type="number" placeholder="UN" id="unovo17"></td>                              
+              </tr> 
+
+            </tbody>
+
+          </table> 
+
+        </div>
+
+        <div id="send">
+
+          <button class="btn waves-effect green" id= "btn1">SALVAR DADOS
+            <i class="material-icons right">send</i>
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div id="wait">
+      <span>SALVANDO DADOS, NÃO SAIA DESTA TELA!!!</span>
+      <div class="progress">
+        <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+          <span class="sr-only"></span>
+        </div>
+      </div>
+    </div>
+
+    <div id="end">
+      <span>DADOS SALVOS COM SUCESSO!!!</span> 
+      <button class="btn waves-effect green" id= "btn2">OK</button>        
+    </div>
+
+  </body>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <script>
+    
+    document.getElementById("btn1").addEventListener("click", SalvarPedido);
+    document.getElementById("btn2").addEventListener("click", ReLoad);
+
+    var campoData = document.getElementById("date");
+    var campoCliente = document.getElementById("inputcliente");
+    var campoNome = document.getElementById("inputname");
+    var inputckeckbox1 = document.getElementById("checkbox1");
+    var inputckeckbox2 = document.getElementById("checkbox2");
+    var inputckeckbox3 = document.getElementById("checkbox3");
+    var inputckeckbox4 = document.getElementById("checkbox4");
+    var ovocx1 = document.getElementById("cxovo1");
+    var ovoun1 = document.getElementById("unovo1");
+    var ovocx2 = document.getElementById("cxovo2");
+    var ovoun2 = document.getElementById("unovo2");
+    var ovocx3 = document.getElementById("cxovo3");
+    var ovoun3 = document.getElementById("unovo3");
+    var ovocx4 = document.getElementById("cxovo4");
+    var ovoun4 = document.getElementById("unovo4");    
+    var ovocx5 = document.getElementById("cxovo5");
+    var ovoun5 = document.getElementById("unovo5");
+    var ovocx6 = document.getElementById("cxovo6");
+    var ovoun6 = document.getElementById("unovo6");
+    var ovocx7 = document.getElementById("cxovo7");
+    var ovoun7 = document.getElementById("unovo7");
+    var ovocx8 = document.getElementById("cxovo8");
+    var ovoun8 = document.getElementById("unovo8");
+    var ovocx9 = document.getElementById("cxovo9");
+    var ovoun9 = document.getElementById("unovo9");
+    var ovocx10 = document.getElementById("cxovo10");
+    var ovoun10 = document.getElementById("unovo10");
+    var ovocx11 = document.getElementById("cxovo11");
+    var ovoun11 = document.getElementById("unovo11");
+    var ovocx12 = document.getElementById("cxovo12");
+    var ovoun12 = document.getElementById("unovo12");
+    var ovocx13 = document.getElementById("cxovo13");
+    var ovoun13 = document.getElementById("unovo13");
+    var ovocx14 = document.getElementById("cxovo14");
+    var ovoun14 = document.getElementById("unovo14");
+    var ovocx16 = document.getElementById("cxovo16");
+    var ovoun16 = document.getElementById("unovo16");
+    var ovocx17 = document.getElementById("unovo17");
+    var ovoun17 = document.getElementById("unovo17");
+
+    function SalvarPedido() {
+      var data = campoData.innerHTML;
+      var cliente = campoCliente.value;
+      var nome = campoNome.value;
+      var ckeckbox = inputckeckbox.value;
+      var ovo1cx = ovocx1.value;
+      var ovo1un = ovoun1.value;
+      var ovo2cx = ovocx2.value;
+      var ovo2un = ovoun2.value;
+      var ovo3cx = ovocx3.value;
+      var ovo3un = ovoun3.value;
+      var ovo4cx = ovocx4.value;
+      var ovo4un = ovoun4.value;
+      var ovo5cx = ovocx5.value;
+      var ovo5un = ovoun5.value;
+      var ovo6cx = ovocx6.value;
+      var ovo6un = ovoun6.value;
+      var ovo7cx = ovocx7.value;
+      var ovo7un = ovoun7.value;
+      var ovo8cx = ovocx8.value;
+      var ovo8un = ovoun8.value;
+      var ovo9cx = ovocx9.value;
+      var ovo9un = ovoun9.value;
+      var ovo10cx = ovocx10.value;
+      var ovo10un = ovoun10.value;
+      var ovo11cx = ovocx11.value;
+      var ovo11un = ovoun11.value;
+      var ovo12cx = ovocx12.value;
+      var ovo12un = ovoun12.value;
+      var ovo13cx = ovocx13.value;
+      var ovo13un = ovoun13.value;
+      var ovo14cx = ovocx14.value;
+      var ovo14un = ovoun14.value;
+      var ovo16cx = ovocx16.value;
+      var ovo16un = ovoun16.value;
+      var ovo17cx = ovocx17.value;
+      var ovo17un = ovoun17.value;
+
+      if (cliente.trim().length == "" || cliente.trim().length < 10) 
+      {
+        alert("SELECIONE UM CLIENTE NA LISTA");
+      }
+      else if (nome.trim().length == "") 
+      {
+        alert("SELECIONE QUEM FEZ A CONTAGEM E DIGITE O NOME");
+      }
+      else if (
+        ovo1un.trim().length == "" || ovo2un.trim().length == "" || ovo3un.trim().length == "" || ovo4un.trim().length == "" || ovo5un.trim().length == "" || ovo6un.trim().length == "" || ovo7un.trim().length == "" || ovo8un.trim().length == "" || ovo9un.trim().length == "" || ovo10un.trim().length == "" || ovo11un.trim().length == "" || ovo12un.trim().length == "" || ovo13un.trim().length == "" || ovo14un.trim().length == "" || ovo16un.trim().length == "" || ovo17un.trim().length == "" ) 
+      {
+        alert("PREENCHA TODAS AS UNIDADES");
+      }
+      else {
+      var Dados  = {
+        aData: campoData.innerHTML,
+        aCliente: campoCliente.value,
+        aNome: campoNome.value,
+        aCkeckbox: inputckeckbox.value,
+        aOvo1cx: cxovo1.value,
+        aOvo1un: unovo1.value,
+        aOvo2cx: cxovo2.value,
+        aOvo2un: unovo2.value,
+        aOvo3cx: cxovo3.value,
+        aOvo3un: unovo3.value,
+        aOvo4cx: cxovo4.value,
+        aOvo4un: unovo4.value,
+        aOvo5cx: cxovo5.value,
+        aOvo5un: unovo5.value,
+        aOvo6cx: cxovo6.value,
+        aOvo6un: unovo6.value,
+        aOvo7cx: cxovo7.value,
+        aOvo7un: unovo7.value,
+        aOvo8cx: cxovo8.value,
+        aOvo8un: unovo8.value,
+        aOvo9cx: cxovo9.value,
+        aOvo9un: unovo9.value,
+        aOvo10cx: cxovo10.value,
+        aOvo10un: unovo10.value,
+        aOvo11cx: cxovo11.value,
+        aOvo11un: unovo11.value,
+        aOvo12cx: cxovo12.value,
+        aOvo12un: unovo12.value,
+        aOvo13cx: cxovo13.value,
+        aOvo13un: unovo13.value,
+        aOvo14cx: cxovo14.value,
+        aOvo14un: unovo14.value,
+        aOvo16cx: cxovo16.value,
+        aOvo16un: unovo16.value,
+        aOvo17cx: cxovo17.value,
+        aOvo17un: unovo17.value,
+        };
+      google.script.run.withSuccessHandler().SalvarPedido(Dados);
+      var wait = document.getElementById("wait");
+      wait.style.display = "inline";
+      var container = document.getElementById("container");
+      container.style.display = "none"; 
+      progressBar()
+      setTimeout(function(){
+        var wait = document.getElementById("wait");
+        wait.style.display = "none";
+        var confirmation = document.getElementById("end");
+        confirmation.style.display = "inline";
+        var container = document.getElementById("container");
+        container.style.display = "none"; 
+      },31500);
+      }
+    };
+
+    /* -------------------------------------- TABLE ARRAY CLIENTS ------------------------------------------- */
+
+    function onLoad() {
+
+      let select = document.createElement('datalist');
+      select.setAttribute('id', 'selectList');
+      select.setAttribute("class", "browser-default");
+      document.getElementById('selectHolder').appendChild(select);
+
+      document.getElementById(`inputcliente`).setAttribute(`list`, `selectList`);
+
+      return getList();
+      };
+
+    function getList() {
+      return google.script.run.withSuccessHandler(setList)._getList();
+      };
+
+    function setList(array) {
+      listArray = array;
+      return updateList(array);
+      };
+      
+    function updateList(array) {
+      if (document.getElementById(`selectList`).hasChildNodes()) {
+        for (let option of document.querySelectorAll(`#selectList option`)) {
+          option.remove();
+          }
+        }
+
+      for (let item of array) {
+        let option = document.createElement('option');
+        option.setAttribute('value', item);
+        option.innerHTML = item;
+        document.getElementById(`selectList`).appendChild(option);
+        } 
+      };
+
+    function handleSelection() {
+      const select = document.getElementById(`selectList`);
+      const selectedOption = select.options[select.selectedIndex].text;
+      return SalvarPedido(selectedOption);      
+      };
+
+    /* -------------------------------------- END TABLE ARRAY CLIENTS ------------------------------------------- */
+
+
+  function check1() {
+    var checkBox1 = document.getElementById("checkbox1");
+    var checkBox2 = document.getElementById("checkbox2");
+    var checkBox3 = document.getElementById("checkbox3");
+    var checkBox4 = document.getElementById("checkbox4");
+
+    if (checkbox1.checked == true){
+      checkbox2.checked = false
+      checkbox3.checked = false
+      checkbox4.checked = false
+      inputckeckbox.value = "Vendedor";
+      document.getElementById("inputname").style.display = "block";
+
+    }else{
+      inputckeckbox.value = "";
+      document.getElementById("inputname").style.display = "none";
+    }
+  }
+
+  function check2() {
+    var checkBox1 = document.getElementById("checkbox1");
+    var checkBox2 = document.getElementById("checkbox2");
+    var checkBox3 = document.getElementById("checkbox3");
+    var checkBox4 = document.getElementById("checkbox4");
+
+    if (checkbox2.checked == true){
+      checkbox1.checked = false
+      checkbox3.checked = false
+      checkbox4.checked = false
+      inputckeckbox.value = "Supervisor";
+      document.getElementById("inputname").style.display = "block";
+    }else{
+      inputckeckbox.value = "";
+      document.getElementById("inputname").style.display = "none";
+    } 
+  }
+
+  function check3() {
+    var checkBox1 = document.getElementById("checkbox1");
+    var checkBox2 = document.getElementById("checkbox2");
+    var checkBox3 = document.getElementById("checkbox3");
+    var checkBox4 = document.getElementById("checkbox4");
+
+    if (checkbox3.checked == true){
+      checkbox2.checked = false
+      checkbox1.checked = false
+      checkbox4.checked = false
+      inputckeckbox.value = "Promotor";
+      document.getElementById("inputname").style.display = "block";
+    }else{
+      inputckeckbox.value = "";
+      document.getElementById("inputname").style.display = "none";
+    } 
+  }
+
+  function check4() {
+    var checkBox1 = document.getElementById("checkbox1");
+    var checkBox2 = document.getElementById("checkbox2");
+    var checkBox3 = document.getElementById("checkbox3");
+    var checkBox4 = document.getElementById("checkbox4");
+
+    if (checkbox4.checked == true){
+      checkbox2.checked = false
+      checkbox3.checked = false
+      checkbox1.checked = false
+      inputckeckbox.value = "Animadora";
+      document.getElementById("inputname").style.display = "block";
+    }else{
+      inputckeckbox.value = "";
+      document.getElementById("inputname").style.display = "none";
+    } 
+  }
+
+
+
+
+    var dataAtual = new Date();
+    var d = dataAtual.getDate();
+    var m = (dataAtual.getMonth() + 1);
+    var y = dataAtual.getFullYear();
+    var horas = dataAtual.getHours();
+    var minutos = dataAtual.getMinutes();
+    var segundos = dataAtual.getSeconds();
+
+    if(d < 10){
+        d = "0"+d;
+    };
+    if(m < 10){
+        m = "0"+m;
+    };
+
+    document.getElementById("date").innerHTML = d + "/" + m + "/" + y + " " + horas + ":" + minutos + ":" + segundos;
+
+    /* ---------------------------------------------  RECHARG PAGE -------------------------------------- */
+
+    function ReLoad() {
+      google.script.run.withSuccessHandler(function(url) {
+        window.open('https://script.google.com/macros/s/AKfycbxyr1dy8weBp4VK2GwO5G5eblMISI3yb4Fz2kA2t1UPhS4XeGuHFqKu97fQZ_Omr7v3Sg/exec', '_top');
+      })
+      .getScriptURL();
+    };
+
+    /* --------------------------------------------- END RECHARG PAGE -------------------------------------- */
+
+
+    function progressBar(){
+      var i = 0;
+
+      var counterBack = setInterval(function(){
+        i++;
+        if (i < 100){
+          $('.progress-bar').css('width', i+'%');
+        } else {
+          clearInterval(counterBack);
+        }
+        
+      }, 0470);
+    }
+
+
+  </script>
+
+</html>
